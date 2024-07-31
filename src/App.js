@@ -89,6 +89,10 @@ function App() {
     setAccessToken(token);
   }, []);
 
+  console.log("seal", searchResults)
+  console.log("seal2", playlistTracks)
+
+
   useEffect(() => {
     if (accessToken) {
       spotifyApi.setAccessToken(accessToken);
