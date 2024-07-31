@@ -114,7 +114,7 @@ postcss.config.js
 tailwind.config.js
 
 # Ignore build output
-src/output.css
+# src/output.css
 
 # Ignore font files if not necessary to keep in the repository
 # src/*.ttf
