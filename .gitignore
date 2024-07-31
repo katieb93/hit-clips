@@ -125,4 +125,4 @@ src/*-webfont.ttf
 src/AppBackUp
 
 # Tailwind CSS file
-src/tailwind.css
+# src/tailwind.css

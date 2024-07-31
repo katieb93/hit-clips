@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bg-very-light-pink {
+    background-color: #ffe4e1; /* This is a very light pink color */
+}
+
+.custom-placeholder::placeholder {
+    color: white;
+}
