@@ -110,8 +110,8 @@ node_modules/
 .pnp.*
 
 # PostCSS and Tailwind config (if environment-specific)
-postcss.config.js
-tailwind.config.js
+# postcss.config.js
+# tailwind.config.js
 
 # Ignore build output
 # src/output.css
