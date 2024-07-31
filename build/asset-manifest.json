@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a566839d.css",
+    "main.js": "/static/js/main.d0b87d39.js",
+    "static/js/453.d316181e.chunk.js": "/static/js/453.d316181e.chunk.js",
+    "static/media/Gunnar-Regular.ttf": "/static/media/Gunnar-Regular.bcba78986c69bbf3d3fc.ttf",
+    "static/media/gunnar-regular-webfont.ttf": "/static/media/gunnar-regular-webfont.116112441976e6484e2a.ttf",
+    "static/media/Spotify_Logo_RGB_Black.png": "/static/media/Spotify_Logo_RGB_Black.0d1e5545dee9f6dc1079.png",
+    "static/media/Headphones.png": "/static/media/Headphones.d233ad0d7b747609156d.png",
+    "index.html": "/index.html",
+    "main.a566839d.css.map": "/static/css/main.a566839d.css.map",
+    "main.d0b87d39.js.map": "/static/js/main.d0b87d39.js.map",
+    "453.d316181e.chunk.js.map": "/static/js/453.d316181e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a566839d.css",
+    "static/js/main.d0b87d39.js"
+  ]
+}
