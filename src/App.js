@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from 'react';
 import SpotifyWebApi from 'spotify-web-api-js';
 import './App.css';
@@ -8,13 +6,13 @@ import './fonts.css'; // Import the fonts.css file
 import 'animate.css';
 
 import HeadphonesImg from './Headphones.png'; // Adjust the path according to your project structure
-import MusicNote from './Group 5.png';
+// import MusicNote from './Group 5.png'; // Remove this if not used
 import Logo from './Spotify_Logo_RGB_Black.png';
 
 const spotifyApi = new SpotifyWebApi();
 
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET;
+// const CLIENT_SECRET = process.env.REACT_APP_SPOTIFY_CLIENT_SECRET; // Remove this if not used
 const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
 const AUTH_ENDPOINT = process.env.REACT_APP_SPOTIFY_AUTH_ENDPOINT;
 const RESPONSE_TYPE = process.env.REACT_APP_SPOTIFY_RESPONSE_TYPE;
@@ -70,7 +68,7 @@ function App() {
   const [playlistResponse, setPlaylistResponse] = useState(null);
   const [accessToken, setAccessToken] = useState('');
   const [userId, setUserId] = useState('');
-  const [userName, setUserName] = useState(''); // State for storing user's name
+  // const [userName, setUserName] = useState(''); // Remove this if not used
   const [searchResults, setSearchResults] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState('');
   const [playlistTracks, setPlaylistTracks] = useState({});
@@ -99,7 +97,7 @@ function App() {
       spotifyApi.getMe()
         .then((data) => {
           setUserId(data.id);
-          setUserName(data.display_name); // Store the user's name
+          // setUserName(data.display_name); // Store the user's name if needed
         })
         .catch((err) => {
           console.error('Failed to get user info', err);
@@ -124,7 +122,7 @@ function App() {
   const logout = () => {
     setAccessToken('');
     setUserId('');
-    setUserName(''); // Clear the user's name
+    // setUserName(''); // Clear the user's name if needed
     setUserPlaylists([]); // Clear the user's playlists
     window.localStorage.removeItem('token');
   };
