@@ -1,40 +1,128 @@
-# Environment files
+# # Environment files
+# .env
+# .env.local
+# .env.development.local
+# .env.test.local
+# .env.production.local
+
+# # Node modules
+# /node_modules
+
+# # Production build
+# /build
+
+# # Logs
+# npm-debug.log*
+# yarn-debug.log*
+# yarn-error.log*
+
+# # OS generated files
+# .DS_Store
+# Thumbs.db
+
+# # IDE specific files
+# .vscode/
+# .idea/
+# *.suo
+# *.ntvs*
+# *.njsproj
+# *.sln
+# *.sw?
+
+# # Testing
+# /coverage
+
+# # Miscellaneous
+# /.pnp
+# .pnp.js
+
+# # Ignore the following for security reasons
+# .git/
+
+# Node modules
+node_modules/
+
+# Dependency directories
+jspm_packages/
+
+# IDE files
+.idea/
+.vscode/
+
+# Environment variables
 .env
 .env.local
 .env.development.local
 .env.test.local
 .env.production.local
 
-# Node modules
-/node_modules
-
-# Production build
-/build
-
-# Logs
+# Log files
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-# OS generated files
-.DS_Store
-Thumbs.db
-
-# IDE specific files
-.vscode/
-.idea/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Testing
-/coverage
-
-# Miscellaneous
-/.pnp
+# Dependency directories
+node_modules/
+.pnp
 .pnp.js
 
-# Ignore the following for security reasons
-.git/
+# Optional npm cache directory
+.npm
+
+# Debug log files
+.DS_Store
+*.pid
+
+# Dependency directories
+node_modules/
+.jupyter
+
+# Output of 'npm pack'
+*.tgz
+
+# Yarn Integrity file
+.yarn-integrity
+
+# dotenv environment variables file
+.env
+
+# MacOS specific file
+.DS_Store
+
+# Dependency directories
+node_modules/
+.pnp
+.pnp.js
+
+# Output of 'npm pack'
+*.tgz
+
+# Optional eslint cache
+.eslintcache
+
+# Yarn state
+.yarn/cache
+.yarn/unplugged
+.yarn/build-state.yml
+.yarn/install-state.gz
+.pnp.*
+
+# PostCSS and Tailwind config (if environment-specific)
+postcss.config.js
+tailwind.config.js
+
+# Ignore build output
+src/output.css
+
+# Ignore font files if not necessary to keep in the repository
+src/*.ttf
+src/*.otf
+src/*-webfont.ttf
+
+# Ignore backup files
+src/AppBackUp
+
+# Tailwind CSS file
+src/tailwind.css

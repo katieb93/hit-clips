@@ -1,5 +1,398 @@
 
 
+// // // // import React, { useState, useEffect } from 'react';
+// // // // import SpotifyWebApi from 'spotify-web-api-js';
+// // // // import './App.css';
+
+// // // // const spotifyApi = new SpotifyWebApi();
+
+// // // // const CLIENT_ID = '711dea0afd70482cb69bfa7cfb0df205'; // Replace with your Spotify Client ID
+// // // // const REDIRECT_URI = 'http://localhost:3000/callback'; // Use one of your registered Redirect URIs
+// // // // const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
+// // // // const RESPONSE_TYPE = 'token';
+// // // // const SCOPE = 'playlist-modify-public';
+
+// // // // function App() {
+// // // //   const [playlistResponse, setPlaylistResponse] = useState(null);
+// // // //   const [accessToken, setAccessToken] = useState('');
+// // // //   const [userId, setUserId] = useState('');
+
+// // // //   useEffect(() => {
+// // // //     const hash = window.location.hash;
+// // // //     let token = window.localStorage.getItem('token');
+
+// // // //     if (!token && hash) {
+// // // //       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
+// // // //       window.location.hash = "";
+// // // //       window.localStorage.setItem('token', token);
+// // // //     }
+
+// // // //     setAccessToken(token);
+// // // //   }, []);
+
+// // // //   useEffect(() => {
+// // // //     if (accessToken) {
+// // // //       spotifyApi.setAccessToken(accessToken);
+
+// // // //       // Get the current user's ID
+// // // //       spotifyApi.getMe()
+// // // //         .then((data) => {
+// // // //           setUserId(data.id);
+// // // //         })
+// // // //         .catch((err) => {
+// // // //           console.error('Failed to get user info', err);
+// // // //         });
+// // // //     }
+// // // //   }, [accessToken]);
+
+// // // //   const login = () => {
+// // // //     const authUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
+// // // //     window.location.href = authUrl;
+// // // //   };
+
+// // // //   const logout = () => {
+// // // //     setAccessToken('');
+// // // //     setUserId('');
+// // // //     window.localStorage.removeItem('token');
+// // // //   };
+
+// // // //   const createPlaylist = () => {
+// // // //     if (!userId) {
+// // // //       console.error('User ID not set');
+// // // //       return;
+// // // //     }
+
+// // // //     spotifyApi.createPlaylist(userId, {
+// // // //       name: 'New Playlist Name',
+// // // //       description: 'My cool playlist',
+// // // //       public: true
+// // // //     })
+// // // //       .then((data) => {
+// // // //         console.log('Created playlist!', data);
+// // // //         setPlaylistResponse(data);
+// // // //         // Add tracks to the playlist
+// // // //         return spotifyApi.addTracksToPlaylist(data.id, [
+// // // //           'spotify:track:4iV5W9uYEdYUVa79Axb7Rh',
+// // // //           'spotify:track:1301WleyT98MSxVHPZCA6M'
+// // // //         ]);
+// // // //       })
+// // // //       .then((data) => {
+// // // //         console.log('Added tracks to playlist!', data);
+// // // //       })
+// // // //       .catch((err) => {
+// // // //         console.error('Something went wrong!', err);
+// // // //       });
+// // // //   };
+
+// // // //   return (
+// // // //     <div className="App">
+// // // //       <header className="App-header">
+// // // //         <h1>Spotify Playlist Creator</h1>
+// // // //         {!accessToken ? (
+// // // //           <button onClick={login}>Log in to Spotify</button>
+// // // //         ) : (
+// // // //           <>
+// // // //             <button onClick={logout}>Log out</button>
+// // // //             <button onClick={createPlaylist} disabled={!userId}>Create Playlist</button>
+// // // //             {playlistResponse && (
+// // // //               <div>
+// // // //                 <h2>Playlist Created</h2>
+// // // //                 <pre>{JSON.stringify(playlistResponse, null, 2)}</pre>
+// // // //               </div>
+// // // //             )}
+// // // //           </>
+// // // //         )}
+// // // //       </header>
+// // // //     </div>
+// // // //   );
+// // // // }
+
+
+// // // import React, { useState, useEffect } from 'react';
+// // // import SpotifyWebApi from 'spotify-web-api-js';
+// // // import './App.css';
+
+// // // const spotifyApi = new SpotifyWebApi();
+
+// // // const CLIENT_ID = '711dea0afd70482cb69bfa7cfb0df205'; // Replace with your Spotify Client ID
+// // // const REDIRECT_URI = 'http://localhost:3000/callback'; // Use one of your registered Redirect URIs
+// // // const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
+// // // const RESPONSE_TYPE = 'token';
+// // // const SCOPE = 'playlist-modify-public';
+
+// // // const _baseUri = 'https://api.spotify.com/v1'; // Base URI for Spotify API
+
+// // // function _checkParamsAndPerformRequest(requestData, options, callback) {
+// // //   const url = `${requestData.url}?${new URLSearchParams(requestData.params).toString()}`;
+// // //   fetch(url, {
+// // //     ...options,
+// // //     headers: {
+// // //       'Authorization': `Bearer ${spotifyApi.getAccessToken()}`,
+// // //       'Content-Type': 'application/json',
+// // //     },
+// // //   })
+// // //     .then(response => {
+// // //       if (!response.ok) {
+// // //         throw new Error('Network response was not ok ' + response.statusText);
+// // //       }
+// // //       return response.json();
+// // //     })
+// // //     .then(data => callback(null, data))
+// // //     .catch(error => callback(error));
+// // // }
+
+// // // function Constr() {}
+
+// // // Constr.prototype.search = function (query, types, limit, offset, options, callback) {
+// // //   var requestData = {
+// // //     url: _baseUri + '/search',
+// // //     params: {
+// // //       q: query,
+// // //       type: types.join(','),
+// // //       limit: limit,
+// // //       offset: offset
+// // //     }
+// // //   };
+// // //   return _checkParamsAndPerformRequest(requestData, options, callback);
+// // // };
+
+// // // Constr.prototype.getPlaylistTracks = function (playlistId, options, callback) {
+// // //   var requestData = {
+// // //     url: _baseUri + '/playlists/' + playlistId + '/tracks',
+// // //     params: {
+// // //       limit: 30 // Limit to top 30 tracks
+// // //     }
+// // //   };
+// // //   return _checkParamsAndPerformRequest(requestData, options, callback);
+// // // };
+
+// // // function App() {
+// // //   const [playlistResponse, setPlaylistResponse] = useState(null);
+// // //   const [accessToken, setAccessToken] = useState('');
+// // //   const [userId, setUserId] = useState('');
+// // //   const [searchResults, setSearchResults] = useState([]);
+// // //   const [searchKeyword, setSearchKeyword] = useState('');
+// // //   const [playlistTracks, setPlaylistTracks] = useState({});
+// // //   const [duplicateTracks, setDuplicateTracks] = useState([]);
+
+// // //   useEffect(() => {
+// // //     const hash = window.location.hash;
+// // //     let token = window.localStorage.getItem('token');
+
+// // //     if (!token && hash) {
+// // //       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
+// // //       window.location.hash = "";
+// // //       window.localStorage.setItem('token', token);
+// // //     }
+
+// // //     setAccessToken(token);
+// // //   }, []);
+
+// // //   useEffect(() => {
+// // //     if (accessToken) {
+// // //       spotifyApi.setAccessToken(accessToken);
+
+// // //       // Get the current user's ID
+// // //       spotifyApi.getMe()
+// // //         .then((data) => {
+// // //           setUserId(data.id);
+// // //         })
+// // //         .catch((err) => {
+// // //           console.error('Failed to get user info', err);
+// // //         });
+// // //     }
+// // //   }, [accessToken]);
+
+// // //   const login = () => {
+// // //     const authUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
+// // //     window.location.href = authUrl;
+// // //   };
+
+// // //   const logout = () => {
+// // //     setAccessToken('');
+// // //     setUserId('');
+// // //     window.localStorage.removeItem('token');
+// // //   };
+
+// // //   const createPlaylist = () => {
+// // //     if (!userId) {
+// // //       console.error('User ID not set');
+// // //       return;
+// // //     }
+
+// // //     console.log("POWER PLAY", searchKeyword)
+// // //     spotifyApi.createPlaylist(userId, {
+// // //       // name: 'New Playlist Name',
+// // //       // description: 'My cool playlist',
+// // //       name: 'Ultimate ${searchKeyword} Playlist',
+// // //       description: 'My cool playlist',
+// // //       public: true
+// // //     })
+// // //       .then((data) => {
+// // //         console.log('Created playlist!', data);
+// // //         setPlaylistResponse(data);
+
+// // //         // Add duplicate tracks to the playlist
+// // //         const trackUris = duplicateTracks.map(track => `spotify:track:${track.id}`);
+// // //         return spotifyApi.addTracksToPlaylist(data.id, trackUris);
+// // //       })
+// // //       .then((data) => {
+// // //         console.log('Added duplicate tracks to playlist!', data);
+// // //       })
+// // //       .catch((err) => {
+// // //         console.error('Something went wrong!', err);
+// // //       });
+// // //   };
+
+// // //   const searchSpotify = (query, types) => {
+// // //     const constr = new Constr();
+// // //     const limit = 50; // Spotify API limit per request is 50
+// // //     let offset = 0;
+// // //     let totalResults = [];
+
+// // //     const fetchMore = () => {
+// // //       constr.search(query, types, limit, offset, {}, (error, data) => {
+// // //         if (error) {
+// // //           console.error('Search error:', error);
+// // //         } else if (data && data.playlists && data.playlists.items) {
+// // //           totalResults = totalResults.concat(data.playlists.items);
+// // //           if (totalResults.length < 100 && data.playlists.items.length === limit) {
+// // //             offset += limit;
+// // //             fetchMore();
+// // //           } else {
+// // //             setSearchResults(totalResults.slice(0, 100)); // Return only 100 results
+// // //             fetchTracksForPlaylists(totalResults.slice(0, 100)); // Fetch tracks for the playlists
+// // //           }
+// // //         } else {
+// // //           console.error('No playlists found');
+// // //         }
+// // //       });
+// // //     };
+
+// // //     fetchMore();
+// // //   };
+
+// // //   const fetchTracksForPlaylists = (playlists) => {
+// // //     const constr = new Constr();
+// // //     const trackCount = {};
+
+// // //     const updateTrackCount = (track) => {
+// // //       if (!track || !track.track || !track.track.id || !track.track.name || !track.track.artists || !track.track.artists[0]) {
+// // //         return;
+// // //       }
+// // //       const trackId = track.track.id;
+// // //       const trackName = track.track.name;
+// // //       const artistName = track.track.artists[0].name;
+// // //       const key = `${trackName} by ${artistName}`;
+// // //       if (trackCount[key]) {
+// // //         trackCount[key].count += 1;
+// // //       } else {
+// // //         trackCount[key] = { id: trackId, name: trackName, artist: artistName, count: 1 };
+// // //       }
+// // //     };
+
+// // //     playlists.forEach((playlist) => {
+// // //       constr.getPlaylistTracks(playlist.id, {}, (error, data) => {
+// // //         if (error) {
+// // //           console.error(`Error fetching tracks for playlist ${playlist.id}:`, error);
+// // //         } else {
+// // //           const tracks = data.items || [];
+// // //           tracks.forEach(track => {
+// // //             if (track.track && track.track.id) {
+// // //               updateTrackCount(track);
+// // //             }
+// // //           });
+// // //           setPlaylistTracks((prevTracks) => ({
+// // //             ...prevTracks,
+// // //             [playlist.id]: tracks.slice(0, 30), // Limit to top 30 tracks
+// // //           }));
+
+// // //           const duplicates = Object.values(trackCount).filter(track => track.count > 1);
+// // //           duplicates.sort((a, b) => b.count - a.count);
+// // //           setDuplicateTracks(duplicates.slice(0, 30)); // Limit to top 30 most frequent tracks
+// // //         }
+// // //       });
+// // //     });
+// // //   };
+
+// // //   const handleSearch = () => {
+// // //     if (searchKeyword.trim()) {
+// // //       searchSpotify(searchKeyword, ['playlist']);
+// // //     }
+// // //   };
+
+// // //   const handleKeywordChange = (event) => {
+// // //     setSearchKeyword(event.target.value);
+// // //   };
+
+// // //   return (
+// // //     <div className="App">
+// // //       <header className="App-header">
+// // //         <h1>Spotify Playlist Creator</h1>
+// // //         {!accessToken ? (
+// // //           <button onClick={login}>Log in to Spotify</button>
+// // //         ) : (
+// // //           <>
+// // //             <button onClick={logout}>Log out</button>
+// // //             <button onClick={createPlaylist} disabled={!userId || duplicateTracks.length === 0}>Create Playlist</button>
+// // //             <div>
+// // //               <input
+// // //                 type="text"
+// // //                 placeholder="Enter search keyword"
+// // //                 value={searchKeyword}
+// // //                 onChange={handleKeywordChange}
+// // //               />
+// // //               <button onClick={handleSearch}>Search Spotify</button>
+// // //             </div>
+// // //             {playlistResponse && (
+// // //               <div>
+// // //                 <h2>Playlist Created</h2>
+// // //                 <pre>{JSON.stringify(playlistResponse, null, 2)}</pre>
+// // //               </div>
+// // //             )}
+// // //             {/* {searchResults.length > 0 && (
+// // //               <div>
+// // //                 <h2>Search Results</h2>
+// // //                 <ul>
+// // //                   {searchResults.map(playlist => (
+// // //                     <li key={playlist.id}>
+// // //                       <strong>{playlist.name}</strong> by {playlist.owner.display_name}
+// // //                       {playlistTracks[playlist.id] && (
+// // //                         <ul>
+// // //                           {playlistTracks[playlist.id].map(track => (
+// // //                             <li key={track.track?.id}>
+// // //                               {track.track?.name ?? 'Unknown Track'} by {track.track?.artists?.[0]?.name ?? 'Unknown Artist'}
+// // //                             </li>
+// // //                           ))}
+// // //                         </ul>
+// // //                       )}
+// // //                     </li>
+// // //                   ))}
+// // //                 </ul>
+// // //               </div>
+// // //             )} */}
+// // //             {duplicateTracks.length > 0 && (
+// // //               <div>
+// // //                 <h2>Duplicate Tracks</h2>
+// // //                 <ul>
+// // //                   {duplicateTracks.map(track => (
+// // //                     <li key={track.id}>
+// // //                       {track.name} by {track.artist} - {track.count} times
+// // //                     </li>
+// // //                   ))}
+// // //                 </ul>
+// // //               </div>
+// // //             )}
+// // //           </>
+// // //         )}
+// // //       </header>
+// // //     </div>
+// // //   );
+// // // }
+
+// // // export default App;
+
+
 // // import React, { useState, useEffect } from 'react';
 // // import SpotifyWebApi from 'spotify-web-api-js';
 // // import './App.css';
@@ -12,10 +405,60 @@
 // // const RESPONSE_TYPE = 'token';
 // // const SCOPE = 'playlist-modify-public';
 
+// // const _baseUri = 'https://api.spotify.com/v1'; // Base URI for Spotify API
+
+// // function _checkParamsAndPerformRequest(requestData, options, callback) {
+// //   const url = `${requestData.url}?${new URLSearchParams(requestData.params).toString()}`;
+// //   fetch(url, {
+// //     ...options,
+// //     headers: {
+// //       'Authorization': `Bearer ${spotifyApi.getAccessToken()}`,
+// //       'Content-Type': 'application/json',
+// //     },
+// //   })
+// //     .then(response => {
+// //       if (!response.ok) {
+// //         throw new Error('Network response was not ok ' + response.statusText);
+// //       }
+// //       return response.json();
+// //     })
+// //     .then(data => callback(null, data))
+// //     .catch(error => callback(error));
+// // }
+
+// // function Constr() {}
+
+// // Constr.prototype.search = function (query, types, limit, offset, options, callback) {
+// //   var requestData = {
+// //     url: _baseUri + '/search',
+// //     params: {
+// //       q: query,
+// //       type: types.join(','),
+// //       limit: limit,
+// //       offset: offset
+// //     }
+// //   };
+// //   return _checkParamsAndPerformRequest(requestData, options, callback);
+// // };
+
+// // Constr.prototype.getPlaylistTracks = function (playlistId, options, callback) {
+// //   var requestData = {
+// //     url: _baseUri + '/playlists/' + playlistId + '/tracks',
+// //     params: {
+// //       limit: 30 // Limit to top 30 tracks
+// //     }
+// //   };
+// //   return _checkParamsAndPerformRequest(requestData, options, callback);
+// // };
+
 // // function App() {
 // //   const [playlistResponse, setPlaylistResponse] = useState(null);
 // //   const [accessToken, setAccessToken] = useState('');
 // //   const [userId, setUserId] = useState('');
+// //   const [searchResults, setSearchResults] = useState([]);
+// //   const [searchKeyword, setSearchKeyword] = useState('');
+// //   const [playlistTracks, setPlaylistTracks] = useState({});
+// //   const [duplicateTracks, setDuplicateTracks] = useState([]);
 
 // //   useEffect(() => {
 // //     const hash = window.location.hash;
@@ -56,32 +499,119 @@
 // //     window.localStorage.removeItem('token');
 // //   };
 
+// //   const capitalizeWords = (str) => {
+// //     return str.replace(/\b\w/g, (char) => char.toUpperCase());
+// //   };
+
 // //   const createPlaylist = () => {
 // //     if (!userId) {
 // //       console.error('User ID not set');
 // //       return;
 // //     }
 
+// //     const capitalizedKeyword = capitalizeWords(searchKeyword);
+
+// //     console.log("POWER PLAY", searchKeyword);
 // //     spotifyApi.createPlaylist(userId, {
-// //       name: 'New Playlist Name',
+// //       name: `Ultimate ${capitalizedKeyword} Playlist`, // Use the capitalized keyword
 // //       description: 'My cool playlist',
 // //       public: true
 // //     })
 // //       .then((data) => {
 // //         console.log('Created playlist!', data);
 // //         setPlaylistResponse(data);
-// //         // Add tracks to the playlist
-// //         return spotifyApi.addTracksToPlaylist(data.id, [
-// //           'spotify:track:4iV5W9uYEdYUVa79Axb7Rh',
-// //           'spotify:track:1301WleyT98MSxVHPZCA6M'
-// //         ]);
+
+// //         // Add duplicate tracks to the playlist
+// //         const trackUris = duplicateTracks.map(track => `spotify:track:${track.id}`);
+// //         return spotifyApi.addTracksToPlaylist(data.id, trackUris);
 // //       })
 // //       .then((data) => {
-// //         console.log('Added tracks to playlist!', data);
+// //         console.log('Added duplicate tracks to playlist!', data);
 // //       })
 // //       .catch((err) => {
 // //         console.error('Something went wrong!', err);
 // //       });
+// //   };
+
+// //   const searchSpotify = (query, types) => {
+// //     const constr = new Constr();
+// //     const limit = 50; // Spotify API limit per request is 50
+// //     let offset = 0;
+// //     let totalResults = [];
+
+// //     const fetchMore = () => {
+// //       constr.search(query, types, limit, offset, {}, (error, data) => {
+// //         if (error) {
+// //           console.error('Search error:', error);
+// //         } else if (data && data.playlists && data.playlists.items) {
+// //           totalResults = totalResults.concat(data.playlists.items);
+// //           if (totalResults.length < 100 && data.playlists.items.length === limit) {
+// //             offset += limit;
+// //             fetchMore();
+// //           } else {
+// //             setSearchResults(totalResults.slice(0, 100)); // Return only 100 results
+// //             fetchTracksForPlaylists(totalResults.slice(0, 100)); // Fetch tracks for the playlists
+// //           }
+// //         } else {
+// //           console.error('No playlists found');
+// //         }
+// //       });
+// //     };
+
+// //     fetchMore();
+// //   };
+
+// //   const fetchTracksForPlaylists = (playlists) => {
+// //     const constr = new Constr();
+// //     const trackCount = {};
+
+// //     const updateTrackCount = (track) => {
+// //       if (!track || !track.track || !track.track.id || !track.track.name || !track.track.artists || !track.track.artists[0]) {
+// //         return;
+// //       }
+// //       const trackId = track.track.id;
+// //       const trackName = track.track.name;
+// //       const artistName = track.track.artists[0].name;
+// //       const key = `${trackName} by ${artistName}`;
+// //       if (trackCount[key]) {
+// //         trackCount[key].count += 1;
+// //       } else {
+// //         trackCount[key] = { id: trackId, name: trackName, artist: artistName, count: 1 };
+// //       }
+// //     };
+
+// //     playlists.forEach((playlist) => {
+// //       constr.getPlaylistTracks(playlist.id, {}, (error, data) => {
+// //         if (error) {
+// //           console.error(`Error fetching tracks for playlist ${playlist.id}:`, error);
+// //         } else {
+// //           const tracks = data.items || [];
+// //           tracks.forEach(track => {
+// //             if (track.track && track.track.id) {
+// //               updateTrackCount(track);
+// //             }
+// //           });
+// //           setPlaylistTracks((prevTracks) => ({
+// //             ...prevTracks,
+// //             [playlist.id]: tracks.slice(0, 30), // Limit to top 30 tracks
+// //           }));
+
+// //           const duplicates = Object.values(trackCount).filter(track => track.count > 1);
+// //           duplicates.sort((a, b) => b.count - a.count);
+// //           setDuplicateTracks(duplicates.slice(0, 30)); // Limit to top 30 most frequent tracks
+// //         }
+// //       });
+// //     });
+// //   };
+
+// //   const handleSearch = () => {
+// //     if (searchKeyword.trim()) {
+// //       searchSpotify(searchKeyword, ['playlist']);
+// //     }
+// //   };
+
+// //   const handleKeywordChange = (event) => {
+// //     setSearchKeyword(event.target.value);
 // //   };
 
 // //   return (
@@ -93,11 +623,53 @@
 // //         ) : (
 // //           <>
 // //             <button onClick={logout}>Log out</button>
-// //             <button onClick={createPlaylist} disabled={!userId}>Create Playlist</button>
+// //             <button onClick={createPlaylist} disabled={!userId || duplicateTracks.length === 0}>Create Playlist</button>
+// //             <div>
+// //               <input
+// //                 type="text"
+// //                 placeholder="Enter search keyword"
+// //                 value={searchKeyword}
+// //                 onChange={handleKeywordChange}
+// //               />
+// //               <button onClick={handleSearch}>Search Spotify</button>
+// //             </div>
 // //             {playlistResponse && (
 // //               <div>
 // //                 <h2>Playlist Created</h2>
 // //                 <pre>{JSON.stringify(playlistResponse, null, 2)}</pre>
+// //               </div>
+// //             )}
+// //             {searchResults.length > 0 && (
+// //               <div>
+// //                 <h2>Search Results</h2>
+// //                 <ul>
+// //                   {searchResults.map(playlist => (
+// //                     <li key={playlist.id}>
+// //                       <strong>{playlist.name}</strong> by {playlist.owner.display_name}
+// //                       {playlistTracks[playlist.id] && (
+// //                         <ul>
+// //                           {playlistTracks[playlist.id].map(track => (
+// //                             <li key={track.track?.id}>
+// //                               {track.track?.name ?? 'Unknown Track'} by {track.track?.artists?.[0]?.name ?? 'Unknown Artist'}
+// //                             </li>
+// //                           ))}
+// //                         </ul>
+// //                       )}
+// //                     </li>
+// //                   ))}
+// //                 </ul>
+// //               </div>
+// //             )}
+// //             {duplicateTracks.length > 0 && (
+// //               <div>
+// //                 <h2>Duplicate Tracks</h2>
+// //                 <ul>
+// //                   {duplicateTracks.map(track => (
+// //                     <li key={track.id}>
+// //                       {track.name} by {track.artist} - {track.count} times
+// //                     </li>
+// //                   ))}
+// //                 </ul>
 // //               </div>
 // //             )}
 // //           </>
@@ -107,860 +679,658 @@
 // //   );
 // // }
 
+// // export default App;
 
-// import React, { useState, useEffect } from 'react';
-// import SpotifyWebApi from 'spotify-web-api-js';
-// import './App.css';
 
-// const spotifyApi = new SpotifyWebApi();
 
-// const CLIENT_ID = '711dea0afd70482cb69bfa7cfb0df205'; // Replace with your Spotify Client ID
-// const REDIRECT_URI = 'http://localhost:3000/callback'; // Use one of your registered Redirect URIs
-// const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-// const RESPONSE_TYPE = 'token';
-// const SCOPE = 'playlist-modify-public';
+// // // import React, { useState, useEffect } from 'react';
+// // // import SpotifyWebApi from 'spotify-web-api-js';
+// // // import './App.css';
 
-// const _baseUri = 'https://api.spotify.com/v1'; // Base URI for Spotify API
+// // // const spotifyApi = new SpotifyWebApi();
 
-// function _checkParamsAndPerformRequest(requestData, options, callback) {
-//   const url = `${requestData.url}?${new URLSearchParams(requestData.params).toString()}`;
-//   fetch(url, {
-//     ...options,
-//     headers: {
-//       'Authorization': `Bearer ${spotifyApi.getAccessToken()}`,
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok ' + response.statusText);
-//       }
-//       return response.json();
-//     })
-//     .then(data => callback(null, data))
-//     .catch(error => callback(error));
-// }
+// // // const CLIENT_ID = '711dea0afd70482cb69bfa7cfb0df205'; // Replace with your Spotify Client ID
+// // // const REDIRECT_URI = 'http://localhost:3000/callback'; // Use one of your registered Redirect URIs
+// // // const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
+// // // const RESPONSE_TYPE = 'token';
+// // // const SCOPE = 'playlist-modify-public';
 
-// function Constr() {}
+// // // const _baseUri = 'https://api.spotify.com/v1'; // Base URI for Spotify API
 
-// Constr.prototype.search = function (query, types, limit, offset, options, callback) {
-//   var requestData = {
-//     url: _baseUri + '/search',
-//     params: {
-//       q: query,
-//       type: types.join(','),
-//       limit: limit,
-//       offset: offset
-//     }
-//   };
-//   return _checkParamsAndPerformRequest(requestData, options, callback);
-// };
+// // // function _checkParamsAndPerformRequest(requestData, options, callback) {
+// // //   const url = `${requestData.url}?${new URLSearchParams(requestData.params).toString()}`;
+// // //   fetch(url, {
+// // //     ...options,
+// // //     headers: {
+// // //       'Authorization': `Bearer ${spotifyApi.getAccessToken()}`,
+// // //       'Content-Type': 'application/json',
+// // //     },
+// // //   })
+// // //     .then(response => {
+// // //       if (!response.ok) {
+// // //         throw new Error('Network response was not ok ' + response.statusText);
+// // //       }
+// // //       return response.json();
+// // //     })
+// // //     .then(data => callback(null, data))
+// // //     .catch(error => callback(error));
+// // // }
 
-// Constr.prototype.getPlaylistTracks = function (playlistId, options, callback) {
-//   var requestData = {
-//     url: _baseUri + '/playlists/' + playlistId + '/tracks',
-//     params: {
-//       limit: 30 // Limit to top 30 tracks
-//     }
-//   };
-//   return _checkParamsAndPerformRequest(requestData, options, callback);
-// };
+// // // function Constr() {}
 
-// function App() {
-//   const [playlistResponse, setPlaylistResponse] = useState(null);
-//   const [accessToken, setAccessToken] = useState('');
-//   const [userId, setUserId] = useState('');
-//   const [searchResults, setSearchResults] = useState([]);
-//   const [searchKeyword, setSearchKeyword] = useState('');
-//   const [playlistTracks, setPlaylistTracks] = useState({});
-//   const [duplicateTracks, setDuplicateTracks] = useState([]);
+// // // Constr.prototype.search = function (query, types, limit, offset, options, callback) {
+// // //   var requestData = {
+// // //     url: _baseUri + '/search',
+// // //     params: {
+// // //       q: query,
+// // //       type: types.join(','),
+// // //       limit: limit,
+// // //       offset: offset
+// // //     }
+// // //   };
+// // //   return _checkParamsAndPerformRequest(requestData, options, callback);
+// // // };
 
-//   useEffect(() => {
-//     const hash = window.location.hash;
-//     let token = window.localStorage.getItem('token');
+// // // Constr.prototype.getPlaylistTracks = function (playlistId, options, callback) {
+// // //   var requestData = {
+// // //     url: _baseUri + '/playlists/' + playlistId + '/tracks',
+// // //     params: {
+// // //       limit: 30 // Limit to top 30 tracks
+// // //     }
+// // //   };
+// // //   return _checkParamsAndPerformRequest(requestData, options, callback);
+// // // };
 
-//     if (!token && hash) {
-//       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
-//       window.location.hash = "";
-//       window.localStorage.setItem('token', token);
-//     }
+// // // function App() {
+// // //   const [playlistResponse, setPlaylistResponse] = useState(null);
+// // //   const [accessToken, setAccessToken] = useState('');
+// // //   const [userId, setUserId] = useState('');
+// // //   const [searchResults, setSearchResults] = useState([]);
+// // //   const [searchKeyword, setSearchKeyword] = useState('');
+// // //   const [playlistTracks, setPlaylistTracks] = useState({});
+// // //   const [duplicateTracks, setDuplicateTracks] = useState([]);
 
-//     setAccessToken(token);
-//   }, []);
+// // //   useEffect(() => {
+// // //     const hash = window.location.hash;
+// // //     let token = window.localStorage.getItem('token');
 
-//   useEffect(() => {
-//     if (accessToken) {
-//       spotifyApi.setAccessToken(accessToken);
+// // //     if (!token && hash) {
+// // //       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
+// // //       window.location.hash = "";
+// // //       window.localStorage.setItem('token', token);
+// // //     }
 
-//       // Get the current user's ID
-//       spotifyApi.getMe()
-//         .then((data) => {
-//           setUserId(data.id);
-//         })
-//         .catch((err) => {
-//           console.error('Failed to get user info', err);
-//         });
-//     }
-//   }, [accessToken]);
+// // //     setAccessToken(token);
+// // //   }, []);
 
-//   const login = () => {
-//     const authUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
-//     window.location.href = authUrl;
-//   };
+// // //   useEffect(() => {
+// // //     if (accessToken) {
+// // //       spotifyApi.setAccessToken(accessToken);
 
-//   const logout = () => {
-//     setAccessToken('');
-//     setUserId('');
-//     window.localStorage.removeItem('token');
-//   };
+// // //       // Get the current user's ID
+// // //       spotifyApi.getMe()
+// // //         .then((data) => {
+// // //           setUserId(data.id);
+// // //         })
+// // //         .catch((err) => {
+// // //           console.error('Failed to get user info', err);
+// // //         });
+// // //     }
+// // //   }, [accessToken]);
 
-//   const createPlaylist = () => {
-//     if (!userId) {
-//       console.error('User ID not set');
-//       return;
-//     }
+// // //   const login = () => {
+// // //     const authUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
+// // //     window.location.href = authUrl;
+// // //   };
 
-//     console.log("POWER PLAY", searchKeyword)
-//     spotifyApi.createPlaylist(userId, {
-//       // name: 'New Playlist Name',
-//       // description: 'My cool playlist',
-//       name: 'Ultimate ${searchKeyword} Playlist',
-//       description: 'My cool playlist',
-//       public: true
-//     })
-//       .then((data) => {
-//         console.log('Created playlist!', data);
-//         setPlaylistResponse(data);
+// // //   const logout = () => {
+// // //     setAccessToken('');
+// // //     setUserId('');
+// // //     window.localStorage.removeItem('token');
+// // //   };
 
-//         // Add duplicate tracks to the playlist
-//         const trackUris = duplicateTracks.map(track => `spotify:track:${track.id}`);
-//         return spotifyApi.addTracksToPlaylist(data.id, trackUris);
-//       })
-//       .then((data) => {
-//         console.log('Added duplicate tracks to playlist!', data);
-//       })
-//       .catch((err) => {
-//         console.error('Something went wrong!', err);
-//       });
-//   };
+// // //   const createPlaylist = () => {
+// // //     if (!userId) {
+// // //       console.error('User ID not set');
+// // //       return;
+// // //     }
 
-//   const searchSpotify = (query, types) => {
-//     const constr = new Constr();
-//     const limit = 50; // Spotify API limit per request is 50
-//     let offset = 0;
-//     let totalResults = [];
+// // //     console.log("POWER PLAY", searchKeyword);
+// // //     spotifyApi.createPlaylist(userId, {
+// // //       name: `Ultimate ${searchKeyword} Playlist`, // Use template literals to embed the searchKeyword value
+// // //       description: 'My cool playlist',
+// // //       public: true
+// // //     })
+// // //       .then((data) => {
+// // //         console.log('Created playlist!', data);
+// // //         setPlaylistResponse(data);
 
-//     const fetchMore = () => {
-//       constr.search(query, types, limit, offset, {}, (error, data) => {
-//         if (error) {
-//           console.error('Search error:', error);
-//         } else if (data && data.playlists && data.playlists.items) {
-//           totalResults = totalResults.concat(data.playlists.items);
-//           if (totalResults.length < 100 && data.playlists.items.length === limit) {
-//             offset += limit;
-//             fetchMore();
-//           } else {
-//             setSearchResults(totalResults.slice(0, 100)); // Return only 100 results
-//             fetchTracksForPlaylists(totalResults.slice(0, 100)); // Fetch tracks for the playlists
-//           }
-//         } else {
-//           console.error('No playlists found');
-//         }
-//       });
-//     };
+// // //         // Add duplicate tracks to the playlist
+// // //         const trackUris = duplicateTracks.map(track => `spotify:track:${track.id}`);
+// // //         return spotifyApi.addTracksToPlaylist(data.id, trackUris);
+// // //       })
+// // //       .then((data) => {
+// // //         console.log('Added duplicate tracks to playlist!', data);
+// // //       })
+// // //       .catch((err) => {
+// // //         console.error('Something went wrong!', err);
+// // //       });
+// // //   };
 
-//     fetchMore();
-//   };
+// // //   const searchSpotify = (query, types) => {
+// // //     const constr = new Constr();
+// // //     const limit = 50; // Spotify API limit per request is 50
+// // //     let offset = 0;
+// // //     let totalResults = [];
 
-//   const fetchTracksForPlaylists = (playlists) => {
-//     const constr = new Constr();
-//     const trackCount = {};
+// // //     const fetchMore = () => {
+// // //       constr.search(query, types, limit, offset, {}, (error, data) => {
+// // //         if (error) {
+// // //           console.error('Search error:', error);
+// // //         } else if (data && data.playlists && data.playlists.items) {
+// // //           totalResults = totalResults.concat(data.playlists.items);
+// // //           if (totalResults.length < 100 && data.playlists.items.length === limit) {
+// // //             offset += limit;
+// // //             fetchMore();
+// // //           } else {
+// // //             setSearchResults(totalResults.slice(0, 100)); // Return only 100 results
+// // //             fetchTracksForPlaylists(totalResults.slice(0, 100)); // Fetch tracks for the playlists
+// // //           }
+// // //         } else {
+// // //           console.error('No playlists found');
+// // //         }
+// // //       });
+// // //     };
 
-//     const updateTrackCount = (track) => {
-//       if (!track || !track.track || !track.track.id || !track.track.name || !track.track.artists || !track.track.artists[0]) {
-//         return;
-//       }
-//       const trackId = track.track.id;
-//       const trackName = track.track.name;
-//       const artistName = track.track.artists[0].name;
-//       const key = `${trackName} by ${artistName}`;
-//       if (trackCount[key]) {
-//         trackCount[key].count += 1;
-//       } else {
-//         trackCount[key] = { id: trackId, name: trackName, artist: artistName, count: 1 };
-//       }
-//     };
+// // //     fetchMore();
+// // //   };
 
-//     playlists.forEach((playlist) => {
-//       constr.getPlaylistTracks(playlist.id, {}, (error, data) => {
-//         if (error) {
-//           console.error(`Error fetching tracks for playlist ${playlist.id}:`, error);
-//         } else {
-//           const tracks = data.items || [];
-//           tracks.forEach(track => {
-//             if (track.track && track.track.id) {
-//               updateTrackCount(track);
-//             }
-//           });
-//           setPlaylistTracks((prevTracks) => ({
-//             ...prevTracks,
-//             [playlist.id]: tracks.slice(0, 30), // Limit to top 30 tracks
-//           }));
+// // //   const fetchTracksForPlaylists = (playlists) => {
+// // //     const constr = new Constr();
+// // //     const trackCount = {};
 
-//           const duplicates = Object.values(trackCount).filter(track => track.count > 1);
-//           duplicates.sort((a, b) => b.count - a.count);
-//           setDuplicateTracks(duplicates.slice(0, 30)); // Limit to top 30 most frequent tracks
-//         }
-//       });
-//     });
-//   };
+// // //     const updateTrackCount = (track) => {
+// // //       if (!track || !track.track || !track.track.id || !track.track.name || !track.track.artists || !track.track.artists[0]) {
+// // //         return;
+// // //       }
+// // //       const trackId = track.track.id;
+// // //       const trackName = track.track.name;
+// // //       const artistName = track.track.artists[0].name;
+// // //       const key = `${trackName} by ${artistName}`;
+// // //       if (trackCount[key]) {
+// // //         trackCount[key].count += 1;
+// // //       } else {
+// // //         trackCount[key] = { id: trackId, name: trackName, artist: artistName, count: 1 };
+// // //       }
+// // //     };
 
-//   const handleSearch = () => {
-//     if (searchKeyword.trim()) {
-//       searchSpotify(searchKeyword, ['playlist']);
-//     }
-//   };
+// // //     playlists.forEach((playlist) => {
+// // //       constr.getPlaylistTracks(playlist.id, {}, (error, data) => {
+// // //         if (error) {
+// // //           console.error(`Error fetching tracks for playlist ${playlist.id}:`, error);
+// // //         } else {
+// // //           const tracks = data.items || [];
+// // //           tracks.forEach(track => {
+// // //             if (track.track && track.track.id) {
+// // //               updateTrackCount(track);
+// // //             }
+// // //           });
+// // //           setPlaylistTracks((prevTracks) => ({
+// // //             ...prevTracks,
+// // //             [playlist.id]: tracks.slice(0, 30), // Limit to top 30 tracks
+// // //           }));
 
-//   const handleKeywordChange = (event) => {
-//     setSearchKeyword(event.target.value);
-//   };
+// // //           const duplicates = Object.values(trackCount).filter(track => track.count > 1);
+// // //           duplicates.sort((a, b) => b.count - a.count);
+// // //           setDuplicateTracks(duplicates.slice(0, 30)); // Limit to top 30 most frequent tracks
+// // //         }
+// // //       });
+// // //     });
+// // //   };
 
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <h1>Spotify Playlist Creator</h1>
-//         {!accessToken ? (
-//           <button onClick={login}>Log in to Spotify</button>
-//         ) : (
-//           <>
-//             <button onClick={logout}>Log out</button>
-//             <button onClick={createPlaylist} disabled={!userId || duplicateTracks.length === 0}>Create Playlist</button>
-//             <div>
-//               <input
-//                 type="text"
-//                 placeholder="Enter search keyword"
-//                 value={searchKeyword}
-//                 onChange={handleKeywordChange}
-//               />
-//               <button onClick={handleSearch}>Search Spotify</button>
+// // //   const handleSearch = () => {
+// // //     if (searchKeyword.trim()) {
+// // //       searchSpotify(searchKeyword, ['playlist']);
+// // //     }
+// // //   };
+
+// // //   const handleKeywordChange = (event) => {
+// // //     setSearchKeyword(event.target.value);
+// // //   };
+
+// // //   return (
+// // //     <div className="App">
+// // //       <header className="App-header">
+// // //         <h1>Spotify Playlist Creator</h1>
+// // //         {!accessToken ? (
+// // //           <button onClick={login}>Log in to Spotify</button>
+// // //         ) : (
+// // //           <>
+// // //             <button onClick={logout}>Log out</button>
+// // //             <button onClick={createPlaylist} disabled={!userId || duplicateTracks.length === 0}>Create Playlist</button>
+// // //             <div>
+// // //               <input
+// // //                 type="text"
+// // //                 placeholder="Enter search keyword"
+// // //                 value={searchKeyword}
+// // //                 onChange={handleKeywordChange}
+// // //               />
+// // //               <button onClick={handleSearch}>Search Spotify</button>
+// // //             </div>
+// // //             {playlistResponse && (
+// // //               <div>
+// // //                 <h2>Playlist Created</h2>
+// // //                 <pre>{JSON.stringify(playlistResponse, null, 2)}</pre>
+// // //               </div>
+// // //             )}
+// // //             {searchResults.length > 0 && (
+// // //               <div>
+// // //                 <h2>Search Results</h2>
+// // //                 <ul>
+// // //                   {searchResults.map(playlist => (
+// // //                     <li key={playlist.id}>
+// // //                       <strong>{playlist.name}</strong> by {playlist.owner.display_name}
+// // //                       {playlistTracks[playlist.id] && (
+// // //                         <ul>
+// // //                           {playlistTracks[playlist.id].map(track => (
+// // //                             <li key={track.track?.id}>
+// // //                               {track.track?.name ?? 'Unknown Track'} by {track.track?.artists?.[0]?.name ?? 'Unknown Artist'}
+// // //                             </li>
+// // //                           ))}
+// // //                         </ul>
+// // //                       )}
+// // //                     </li>
+// // //                   ))}
+// // //                 </ul>
+// // //               </div>
+// // //             )}
+// // //             {duplicateTracks.length > 0 && (
+// // //               <div>
+// // //                 <h2>Duplicate Tracks</h2>
+// // //                 <ul>
+// // //                   {duplicateTracks.map(track => (
+// // //                     <li key={track.id}>
+// // //                       {track.name} by {track.artist} - {track.count} times
+// // //                     </li>
+// // //                   ))}
+// // //                 </ul>
+// // //               </div>
+// // //             )}
+// // //           </>
+// // //         )}
+// // //       </header>
+// // //     </div>
+// // //   );
+// // // }
+
+// // // export default App;
+
+
+// // return (
+// //   <div className="App w-full bg-custom-purple w-screen h-screen text-purple-500 flex flex-col relative">
+// //     <div
+// //       className="w-full h-[100px] flex-shrink-0 bg-custom-pink shadow-custom"
+// //       style={{
+// //         boxShadow: '-10px 10px 0px 0px #FFD240',
+// //       }}
+// //     ></div>
+
+// //     <header className="App-header">
+// //       <div className="absolute top-0 right-0" style={{ marginTop: '-40px', marginRight: '5em' }}>
+// //         <h1
+// //           className="flex flex-col justify-center w-[865px] h-[300px] flex-shrink-0 text-right font-yearsync text-[150px] font-normal uppercase"
+// //           style={{
+// //             color: '#53498E',
+// //             textShadow: '-10px 10px 0px #FFD240',
+// //             lineHeight: 'normal',
+// //           }}
+// //         >
+// //           Clip Hits
+// //         </h1>
+// //       </div>
+
+// //       {!accessToken ? (
+// //         <button
+// //           className="absolute bottom-0 w-[260px] h-[260px] flex-shrink-0 rounded-full border-[9px] text-center font-gunnar font-normal text-[30px] uppercase left-[20rem] mb-[310px]"
+// //           style={{
+// //             borderColor: '#E6A7D4',
+// //             backgroundColor: '#FFD240',
+// //             color: '#53498E',
+// //             lineHeight: 'normal',
+// //             filter: 'drop-shadow(-10px 10px 4px rgba(0, 0, 0, 0.25))',
+// //           }}
+// //           onClick={login}
+// //         >
+// //           Connect to Spotify
+// //         </button>
+// //       ) : (
+// //         <>
+// //           <button className="btn btn-secondary" onClick={logout}>
+// //             Log out
+// //           </button>
+
+// //           <div className="flex flex-col items-center justify-center font-gunnar" style={{ width: '100%', marginTop: '150px' }}>
+// //             <div className="relative" style={{ width: '500px', height: '75px' }}>
+// //               <div
+// //                 className="absolute bg-transparent border-5 border-custom-dark-purple rounded-30 flex items-center justify-center"
+// //                 style={{ width: '497.24px', height: '75px' }}
+// //               >
+// //                 <div
+// //                   className="w-full h-full bg-white rounded-25"
+// //                   style={{ boxSizing: 'border-box' }}
+// //                 />
+// //               </div>
+
+// //               <div
+// //                 className="absolute flex items-center justify-start"
+// //                 style={{ width: '400px', height: '75px', left: '10px' }}
+// //               >
+// //                 <input
+// //                   className="input input-bordered w-full max-w-xs"
+// //                   type="text"
+// //                   placeholder="Enter search keyword"
+// //                   value={searchKeyword}
+// //                   onChange={handleKeywordChange}
+// //                   style={{
+// //                     width: '100%',
+// //                     height: '86%',
+// //                     borderRadius: '20px',
+// //                     padding: '0 10px',
+// //                     outline: 'none', // Remove the blue border
+// //                     boxShadow: 'none', // Remove the box shadow
+// //                   }}
+// //                 />
+// //               </div>
+
+// //               <button
+// //                 className="absolute left-[350px] w-[145.72px] h-[75px] flex items-center justify-center text-white bg-custom-dark-purple hover:bg-custom-yellow rounded-r-30 font-gunnar font-normal text-20 uppercase transition-colors duration-300 cursor-pointer"
+// //                 onClick={handleSearch}
+// //               >
+// //                 Search
+// //               </button>
+// //             </div>
+
+// //             {duplicateTracks.length > 0 && (
+// //               <div
+// //                 className="mt-4 w-full flex justify-center"
+// //                 style={{ height: '200px', width: '500px', overflowY: 'scroll', background: 'white', boxShadow: '-10px 10px 0px rgba(0, 0, 0, 0.25)', borderRadius: 30 }}
+// //               >
+// //                 <ul className="list-inside text-purple-500 text-left p-4">
+// //                   {duplicateTracks.map((track) => (
+// //                     <li key={track.id}>
+// //                       {track.name} by {track.artist} - {track.count} times
+// //                     </li>
+// //                   ))}
+// //                 </ul>
+// //               </div>
+// //             )}
+// //           </div>
+
+// //           {playlistResponse && (
+// //             <div className="alert alert-success">
+// //               <h2>Playlist Created</h2>
+// //               <pre>{JSON.stringify(playlistResponse, null, 2)}</pre>
+// //             </div>
+// //           )}
+// //         </>
+// //       )}
+// //     </header>
+// //   </div>
+// // );
+// // }
+
+// // export default App;
+
+// return (
+//   <div className="App w-full bg-custom-purple w-screen h-screen text-purple-500 flex flex-col relative">
+//     <div
+//       className="w-full h-[100px] flex-shrink-0 bg-custom-pink shadow-custom"
+//       style={{
+//         boxShadow: '-10px 10px 0px 0px #FFD240',
+//       }}
+//     ></div>
+
+//     <header className="App-header">
+//       <div className="absolute top-0 right-0" style={{ marginTop: '-40px', marginRight: '5em' }}>
+//         <div
+//           style={{
+//             width: '100%',
+//             height: '100%',
+//             textAlign: 'right',
+//             color: '#53498E',
+//             fontSize: '180px',
+//             fontFamily: 'YEAR SYNC',
+//             fontWeight: '400',
+//             textTransform: 'uppercase',
+//             wordWrap: 'break-word',
+//             textShadow: '-10px 10px 0px #FFD240',
+//           }}
+//         >
+//           clip hits
+//         </div>
+//       </div>
+
+//       {userName && (
+//         <div
+//           style={{
+//             width: '40%',
+//             height: '100%',
+//             color: 'white',
+//             fontSize: '100px',
+//             fontFamily: 'YEAR SYNC',
+//             fontWeight: '400',
+//             textTransform: 'uppercase',
+//             lineHeight: '100px',
+//             textAlign: 'left',
+//             position: 'absolute',
+//             left: '0',
+//             paddingLeft: '20px',
+//             textShadow: '-6px 6px 0px rgba(0, 0, 0, 0.25)', // Closer black shadow with 25% opacity and no blur
+
+
+//             display: 'flex',
+//             flexDirection: 'column',
+//             // justifyContent: 'center',
+//             top: '200px', 
+//             whiteSpace: 'nowrap',
+//             overflow: 'hidden',
+//             textOverflow: 'ellipsis',
+//             paddingTop: '10px', // Adjusted padding to move it down slightly
+//           }}
+//         >
+//           <span style={{ lineHeight: '1em' }}>Hey</span>
+//           <span
+//             id="userName"
+//             style={{ fontSize: '1em', lineHeight: '1em' }}
+//           >
+//             {userName}
+//           </span>
+//         </div>
+//       )}
+
+//       {!accessToken ? (
+//         <button
+//           className="absolute bottom-0 w-[260px] h-[260px] flex-shrink-0 rounded-full border-[9px] text-center font-gunnar font-normal text-[30px] uppercase right-[20rem] mb-[310px]"
+//           style={{
+//             borderColor: '#E6A7D4',
+//             backgroundColor: '#FFD240',
+//             color: '#53498E',
+//             lineHeight: 'normal',
+//             filter: 'drop-shadow(-10px 10px 4px rgba(0, 0, 0, 0.25))',
+//             marginRight: '5em'
+//           }}
+//           onClick={login}
+//         >
+//           Connect to Spotify
+//         </button>
+//       ) : (
+//         <>
+//           <button className="btn btn-secondary" onClick={logout} style={{ marginRight: '5em' }}>
+//             Log out
+//           </button>
+
+//           <div className="flex flex-col items-end justify-center font-gunnar" style={{ width: '100%', marginTop: '100px', marginRight: '5em' }}>
+//             <div className="relative" style={{ width: '500px', height: '75px', textAlign: 'right' }}>
+//               <div
+//                 className="absolute bg-transparent border-5 border-custom-dark-purple rounded-30 flex items-center justify-center"
+//                 style={{ width: '497.24px', height: '75px', right: '0' }}
+//               >
+//                 <div
+//                   className="w-full h-full bg-white rounded-25"
+//                   style={{ boxSizing: 'border-box' }}
+//                 />
+//               </div>
+
+//               <div
+//                 className="absolute flex items-center justify-start"
+//                 style={{ width: '400px', height: '75px', right: '10px' }}
+//               >
+//                 <input
+//                   className="input input-bordered w-full max-w-xs"
+//                   type="text"
+//                   placeholder="Enter search keyword"
+//                   value={searchKeyword}
+//                   onChange={handleKeywordChange}
+//                   style={{
+//                     width: '100%',
+//                     height: '86%',
+//                     borderRadius: '20px',
+//                     padding: '0 10px',
+//                     outline: 'none',
+//                     boxShadow: 'none',
+//                     color: '#53498E',
+//                     textAlign: 'left',
+//                   }}
+//                 />
+//               </div>
+
+//               <button
+//                 className="absolute right-[0] w-[145.72px] h-[75px] flex items-center justify-end text-white bg-custom-dark-purple hover:bg-custom-yellow rounded-r-30 font-gunnar font-normal text-20 uppercase transition-colors duration-300 cursor-pointer"
+//                 onClick={handleSearch}
+//                 style={{ marginRight: '5em' }}
+//               >
+//                 Search
+//               </button>
 //             </div>
-//             {playlistResponse && (
-//               <div>
-//                 <h2>Playlist Created</h2>
-//                 <pre>{JSON.stringify(playlistResponse, null, 2)}</pre>
-//               </div>
-//             )}
-//             {/* {searchResults.length > 0 && (
-//               <div>
-//                 <h2>Search Results</h2>
-//                 <ul>
-//                   {searchResults.map(playlist => (
-//                     <li key={playlist.id}>
-//                       <strong>{playlist.name}</strong> by {playlist.owner.display_name}
-//                       {playlistTracks[playlist.id] && (
-//                         <ul>
-//                           {playlistTracks[playlist.id].map(track => (
-//                             <li key={track.track?.id}>
-//                               {track.track?.name ?? 'Unknown Track'} by {track.track?.artists?.[0]?.name ?? 'Unknown Artist'}
-//                             </li>
-//                           ))}
-//                         </ul>
-//                       )}
-//                     </li>
-//                   ))}
-//                 </ul>
-//               </div>
-//             )} */}
+
 //             {duplicateTracks.length > 0 && (
-//               <div>
-//                 <h2>Duplicate Tracks</h2>
-//                 <ul>
-//                   {duplicateTracks.map(track => (
+//               <div
+//                 className="mt-4 w-full flex justify-end"
+//                 style={{
+//                   height: '200px',
+//                   width: '500px',
+//                   overflowY: 'scroll',
+//                   background: 'white',
+//                   borderRadius: 30,
+//                   msOverflowStyle: 'none',
+//                   scrollbarWidth: 'none',
+//                   marginRight: '5em'
+//                 }}
+//               >
+//                 <ul className="list-inside text-purple-500 text-left p-4">
+//                   {duplicateTracks.map((track) => (
 //                     <li key={track.id}>
-//                       {track.name} by {track.artist} - {track.count} times
+//                       {track.name} by {track.artist}
 //                     </li>
 //                   ))}
 //                 </ul>
 //               </div>
 //             )}
-//           </>
-//         )}
-//       </header>
-//     </div>
-//   );
-// }
 
-// export default App;
-
-
-import React, { useState, useEffect } from 'react';
-import SpotifyWebApi from 'spotify-web-api-js';
-import './App.css';
-
-const spotifyApi = new SpotifyWebApi();
-
-const CLIENT_ID = '711dea0afd70482cb69bfa7cfb0df205'; // Replace with your Spotify Client ID
-const REDIRECT_URI = 'http://localhost:3000/callback'; // Use one of your registered Redirect URIs
-const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-const RESPONSE_TYPE = 'token';
-const SCOPE = 'playlist-modify-public';
-
-const _baseUri = 'https://api.spotify.com/v1'; // Base URI for Spotify API
-
-function _checkParamsAndPerformRequest(requestData, options, callback) {
-  const url = `${requestData.url}?${new URLSearchParams(requestData.params).toString()}`;
-  fetch(url, {
-    ...options,
-    headers: {
-      'Authorization': `Bearer ${spotifyApi.getAccessToken()}`,
-      'Content-Type': 'application/json',
-    },
-  })
-    .then(response => {
-      if (!response.ok) {
-        throw new Error('Network response was not ok ' + response.statusText);
-      }
-      return response.json();
-    })
-    .then(data => callback(null, data))
-    .catch(error => callback(error));
-}
-
-function Constr() {}
-
-Constr.prototype.search = function (query, types, limit, offset, options, callback) {
-  var requestData = {
-    url: _baseUri + '/search',
-    params: {
-      q: query,
-      type: types.join(','),
-      limit: limit,
-      offset: offset
-    }
-  };
-  return _checkParamsAndPerformRequest(requestData, options, callback);
-};
-
-Constr.prototype.getPlaylistTracks = function (playlistId, options, callback) {
-  var requestData = {
-    url: _baseUri + '/playlists/' + playlistId + '/tracks',
-    params: {
-      limit: 30 // Limit to top 30 tracks
-    }
-  };
-  return _checkParamsAndPerformRequest(requestData, options, callback);
-};
-
-function App() {
-  const [playlistResponse, setPlaylistResponse] = useState(null);
-  const [accessToken, setAccessToken] = useState('');
-  const [userId, setUserId] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [searchKeyword, setSearchKeyword] = useState('');
-  const [playlistTracks, setPlaylistTracks] = useState({});
-  const [duplicateTracks, setDuplicateTracks] = useState([]);
-
-  useEffect(() => {
-    const hash = window.location.hash;
-    let token = window.localStorage.getItem('token');
-
-    if (!token && hash) {
-      token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
-      window.location.hash = "";
-      window.localStorage.setItem('token', token);
-    }
-
-    setAccessToken(token);
-  }, []);
-
-  useEffect(() => {
-    if (accessToken) {
-      spotifyApi.setAccessToken(accessToken);
-
-      // Get the current user's ID
-      spotifyApi.getMe()
-        .then((data) => {
-          setUserId(data.id);
-        })
-        .catch((err) => {
-          console.error('Failed to get user info', err);
-        });
-    }
-  }, [accessToken]);
-
-  const login = () => {
-    const authUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
-    window.location.href = authUrl;
-  };
-
-  const logout = () => {
-    setAccessToken('');
-    setUserId('');
-    window.localStorage.removeItem('token');
-  };
-
-  const capitalizeWords = (str) => {
-    return str.replace(/\b\w/g, (char) => char.toUpperCase());
-  };
-
-  const createPlaylist = () => {
-    if (!userId) {
-      console.error('User ID not set');
-      return;
-    }
-
-    const capitalizedKeyword = capitalizeWords(searchKeyword);
-
-    console.log("POWER PLAY", searchKeyword);
-    spotifyApi.createPlaylist(userId, {
-      name: `Ultimate ${capitalizedKeyword} Playlist`, // Use the capitalized keyword
-      description: 'My cool playlist',
-      public: true
-    })
-      .then((data) => {
-        console.log('Created playlist!', data);
-        setPlaylistResponse(data);
-
-        // Add duplicate tracks to the playlist
-        const trackUris = duplicateTracks.map(track => `spotify:track:${track.id}`);
-        return spotifyApi.addTracksToPlaylist(data.id, trackUris);
-      })
-      .then((data) => {
-        console.log('Added duplicate tracks to playlist!', data);
-      })
-      .catch((err) => {
-        console.error('Something went wrong!', err);
-      });
-  };
-
-  const searchSpotify = (query, types) => {
-    const constr = new Constr();
-    const limit = 50; // Spotify API limit per request is 50
-    let offset = 0;
-    let totalResults = [];
-
-    const fetchMore = () => {
-      constr.search(query, types, limit, offset, {}, (error, data) => {
-        if (error) {
-          console.error('Search error:', error);
-        } else if (data && data.playlists && data.playlists.items) {
-          totalResults = totalResults.concat(data.playlists.items);
-          if (totalResults.length < 100 && data.playlists.items.length === limit) {
-            offset += limit;
-            fetchMore();
-          } else {
-            setSearchResults(totalResults.slice(0, 100)); // Return only 100 results
-            fetchTracksForPlaylists(totalResults.slice(0, 100)); // Fetch tracks for the playlists
-          }
-        } else {
-          console.error('No playlists found');
-        }
-      });
-    };
-
-    fetchMore();
-  };
-
-  const fetchTracksForPlaylists = (playlists) => {
-    const constr = new Constr();
-    const trackCount = {};
-
-    const updateTrackCount = (track) => {
-      if (!track || !track.track || !track.track.id || !track.track.name || !track.track.artists || !track.track.artists[0]) {
-        return;
-      }
-      const trackId = track.track.id;
-      const trackName = track.track.name;
-      const artistName = track.track.artists[0].name;
-      const key = `${trackName} by ${artistName}`;
-      if (trackCount[key]) {
-        trackCount[key].count += 1;
-      } else {
-        trackCount[key] = { id: trackId, name: trackName, artist: artistName, count: 1 };
-      }
-    };
-
-    playlists.forEach((playlist) => {
-      constr.getPlaylistTracks(playlist.id, {}, (error, data) => {
-        if (error) {
-          console.error(`Error fetching tracks for playlist ${playlist.id}:`, error);
-        } else {
-          const tracks = data.items || [];
-          tracks.forEach(track => {
-            if (track.track && track.track.id) {
-              updateTrackCount(track);
-            }
-          });
-          setPlaylistTracks((prevTracks) => ({
-            ...prevTracks,
-            [playlist.id]: tracks.slice(0, 30), // Limit to top 30 tracks
-          }));
-
-          const duplicates = Object.values(trackCount).filter(track => track.count > 1);
-          duplicates.sort((a, b) => b.count - a.count);
-          setDuplicateTracks(duplicates.slice(0, 30)); // Limit to top 30 most frequent tracks
-        }
-      });
-    });
-  };
-
-  const handleSearch = () => {
-    if (searchKeyword.trim()) {
-      searchSpotify(searchKeyword, ['playlist']);
-    }
-  };
-
-  const handleKeywordChange = (event) => {
-    setSearchKeyword(event.target.value);
-  };
-
-  return (
-    <div className="App">
-      <header className="App-header">
-        <h1>Spotify Playlist Creator</h1>
-        {!accessToken ? (
-          <button onClick={login}>Log in to Spotify</button>
-        ) : (
-          <>
-            <button onClick={logout}>Log out</button>
-            <button onClick={createPlaylist} disabled={!userId || duplicateTracks.length === 0}>Create Playlist</button>
-            <div>
-              <input
-                type="text"
-                placeholder="Enter search keyword"
-                value={searchKeyword}
-                onChange={handleKeywordChange}
-              />
-              <button onClick={handleSearch}>Search Spotify</button>
-            </div>
-            {playlistResponse && (
-              <div>
-                <h2>Playlist Created</h2>
-                <pre>{JSON.stringify(playlistResponse, null, 2)}</pre>
-              </div>
-            )}
-            {searchResults.length > 0 && (
-              <div>
-                <h2>Search Results</h2>
-                <ul>
-                  {searchResults.map(playlist => (
-                    <li key={playlist.id}>
-                      <strong>{playlist.name}</strong> by {playlist.owner.display_name}
-                      {playlistTracks[playlist.id] && (
-                        <ul>
-                          {playlistTracks[playlist.id].map(track => (
-                            <li key={track.track?.id}>
-                              {track.track?.name ?? 'Unknown Track'} by {track.track?.artists?.[0]?.name ?? 'Unknown Artist'}
-                            </li>
-                          ))}
-                        </ul>
-                      )}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-            {duplicateTracks.length > 0 && (
-              <div>
-                <h2>Duplicate Tracks</h2>
-                <ul>
-                  {duplicateTracks.map(track => (
-                    <li key={track.id}>
-                      {track.name} by {track.artist} - {track.count} times
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            )}
-          </>
-        )}
-      </header>
-    </div>
-  );
-}
-
-export default App;
-
-
-
-// import React, { useState, useEffect } from 'react';
-// import SpotifyWebApi from 'spotify-web-api-js';
-// import './App.css';
-
-// const spotifyApi = new SpotifyWebApi();
-
-// const CLIENT_ID = '711dea0afd70482cb69bfa7cfb0df205'; // Replace with your Spotify Client ID
-// const REDIRECT_URI = 'http://localhost:3000/callback'; // Use one of your registered Redirect URIs
-// const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
-// const RESPONSE_TYPE = 'token';
-// const SCOPE = 'playlist-modify-public';
-
-// const _baseUri = 'https://api.spotify.com/v1'; // Base URI for Spotify API
-
-// function _checkParamsAndPerformRequest(requestData, options, callback) {
-//   const url = `${requestData.url}?${new URLSearchParams(requestData.params).toString()}`;
-//   fetch(url, {
-//     ...options,
-//     headers: {
-//       'Authorization': `Bearer ${spotifyApi.getAccessToken()}`,
-//       'Content-Type': 'application/json',
-//     },
-//   })
-//     .then(response => {
-//       if (!response.ok) {
-//         throw new Error('Network response was not ok ' + response.statusText);
-//       }
-//       return response.json();
-//     })
-//     .then(data => callback(null, data))
-//     .catch(error => callback(error));
-// }
-
-// function Constr() {}
-
-// Constr.prototype.search = function (query, types, limit, offset, options, callback) {
-//   var requestData = {
-//     url: _baseUri + '/search',
-//     params: {
-//       q: query,
-//       type: types.join(','),
-//       limit: limit,
-//       offset: offset
-//     }
-//   };
-//   return _checkParamsAndPerformRequest(requestData, options, callback);
-// };
-
-// Constr.prototype.getPlaylistTracks = function (playlistId, options, callback) {
-//   var requestData = {
-//     url: _baseUri + '/playlists/' + playlistId + '/tracks',
-//     params: {
-//       limit: 30 // Limit to top 30 tracks
-//     }
-//   };
-//   return _checkParamsAndPerformRequest(requestData, options, callback);
-// };
-
-// function App() {
-//   const [playlistResponse, setPlaylistResponse] = useState(null);
-//   const [accessToken, setAccessToken] = useState('');
-//   const [userId, setUserId] = useState('');
-//   const [searchResults, setSearchResults] = useState([]);
-//   const [searchKeyword, setSearchKeyword] = useState('');
-//   const [playlistTracks, setPlaylistTracks] = useState({});
-//   const [duplicateTracks, setDuplicateTracks] = useState([]);
-
-//   useEffect(() => {
-//     const hash = window.location.hash;
-//     let token = window.localStorage.getItem('token');
-
-//     if (!token && hash) {
-//       token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split("=")[1];
-//       window.location.hash = "";
-//       window.localStorage.setItem('token', token);
-//     }
-
-//     setAccessToken(token);
-//   }, []);
-
-//   useEffect(() => {
-//     if (accessToken) {
-//       spotifyApi.setAccessToken(accessToken);
-
-//       // Get the current user's ID
-//       spotifyApi.getMe()
-//         .then((data) => {
-//           setUserId(data.id);
-//         })
-//         .catch((err) => {
-//           console.error('Failed to get user info', err);
-//         });
-//     }
-//   }, [accessToken]);
-
-//   const login = () => {
-//     const authUrl = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${encodeURIComponent(REDIRECT_URI)}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
-//     window.location.href = authUrl;
-//   };
-
-//   const logout = () => {
-//     setAccessToken('');
-//     setUserId('');
-//     window.localStorage.removeItem('token');
-//   };
-
-//   const createPlaylist = () => {
-//     if (!userId) {
-//       console.error('User ID not set');
-//       return;
-//     }
-
-//     console.log("POWER PLAY", searchKeyword);
-//     spotifyApi.createPlaylist(userId, {
-//       name: `Ultimate ${searchKeyword} Playlist`, // Use template literals to embed the searchKeyword value
-//       description: 'My cool playlist',
-//       public: true
-//     })
-//       .then((data) => {
-//         console.log('Created playlist!', data);
-//         setPlaylistResponse(data);
-
-//         // Add duplicate tracks to the playlist
-//         const trackUris = duplicateTracks.map(track => `spotify:track:${track.id}`);
-//         return spotifyApi.addTracksToPlaylist(data.id, trackUris);
-//       })
-//       .then((data) => {
-//         console.log('Added duplicate tracks to playlist!', data);
-//       })
-//       .catch((err) => {
-//         console.error('Something went wrong!', err);
-//       });
-//   };
-
-//   const searchSpotify = (query, types) => {
-//     const constr = new Constr();
-//     const limit = 50; // Spotify API limit per request is 50
-//     let offset = 0;
-//     let totalResults = [];
-
-//     const fetchMore = () => {
-//       constr.search(query, types, limit, offset, {}, (error, data) => {
-//         if (error) {
-//           console.error('Search error:', error);
-//         } else if (data && data.playlists && data.playlists.items) {
-//           totalResults = totalResults.concat(data.playlists.items);
-//           if (totalResults.length < 100 && data.playlists.items.length === limit) {
-//             offset += limit;
-//             fetchMore();
-//           } else {
-//             setSearchResults(totalResults.slice(0, 100)); // Return only 100 results
-//             fetchTracksForPlaylists(totalResults.slice(0, 100)); // Fetch tracks for the playlists
-//           }
-//         } else {
-//           console.error('No playlists found');
-//         }
-//       });
-//     };
-
-//     fetchMore();
-//   };
-
-//   const fetchTracksForPlaylists = (playlists) => {
-//     const constr = new Constr();
-//     const trackCount = {};
-
-//     const updateTrackCount = (track) => {
-//       if (!track || !track.track || !track.track.id || !track.track.name || !track.track.artists || !track.track.artists[0]) {
-//         return;
-//       }
-//       const trackId = track.track.id;
-//       const trackName = track.track.name;
-//       const artistName = track.track.artists[0].name;
-//       const key = `${trackName} by ${artistName}`;
-//       if (trackCount[key]) {
-//         trackCount[key].count += 1;
-//       } else {
-//         trackCount[key] = { id: trackId, name: trackName, artist: artistName, count: 1 };
-//       }
-//     };
-
-//     playlists.forEach((playlist) => {
-//       constr.getPlaylistTracks(playlist.id, {}, (error, data) => {
-//         if (error) {
-//           console.error(`Error fetching tracks for playlist ${playlist.id}:`, error);
-//         } else {
-//           const tracks = data.items || [];
-//           tracks.forEach(track => {
-//             if (track.track && track.track.id) {
-//               updateTrackCount(track);
-//             }
-//           });
-//           setPlaylistTracks((prevTracks) => ({
-//             ...prevTracks,
-//             [playlist.id]: tracks.slice(0, 30), // Limit to top 30 tracks
-//           }));
-
-//           const duplicates = Object.values(trackCount).filter(track => track.count > 1);
-//           duplicates.sort((a, b) => b.count - a.count);
-//           setDuplicateTracks(duplicates.slice(0, 30)); // Limit to top 30 most frequent tracks
-//         }
-//       });
-//     });
-//   };
-
-//   const handleSearch = () => {
-//     if (searchKeyword.trim()) {
-//       searchSpotify(searchKeyword, ['playlist']);
-//     }
-//   };
-
-//   const handleKeywordChange = (event) => {
-//     setSearchKeyword(event.target.value);
-//   };
-
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <h1>Spotify Playlist Creator</h1>
-//         {!accessToken ? (
-//           <button onClick={login}>Log in to Spotify</button>
-//         ) : (
-//           <>
-//             <button onClick={logout}>Log out</button>
-//             <button onClick={createPlaylist} disabled={!userId || duplicateTracks.length === 0}>Create Playlist</button>
-//             <div>
-//               <input
-//                 type="text"
-//                 placeholder="Enter search keyword"
-//                 value={searchKeyword}
-//                 onChange={handleKeywordChange}
-//               />
-//               <button onClick={handleSearch}>Search Spotify</button>
+//             {duplicateTracks.length > 0 && (
+//               <div
+//                 className="mt-4 w-full flex justify-center hover:shadow-[0px 4px 4px rgba(0, 0, 0, 0.25)]"
+//                 style={{
+//                   width: '500px',
+//                   height: '71px',
+//                   position: 'relative',
+//                   background: '#53498E',
+//                   borderRadius: '30px',
+//                   cursor: 'pointer',
+//                   boxShadow: 'none',
+//                   marginRight: '5em'
+//                 }}
+//                 onClick={createPlaylist}
+//               >
+//                 <div
+//                   className="hover:shadow-[0px 4px 4px rgba(0, 0, 0, 0.25)]"
+//                   style={{
+//                     width: '500px',
+//                     height: '71px',
+//                     position: 'absolute',
+//                     textAlign: 'center',
+//                     color: '#FFD240',
+//                     fontSize: '20px',
+//                     fontFamily: 'Gunnar',
+//                     fontWeight: '400',
+//                     textTransform: 'uppercase',
+//                     wordWrap: 'break-word',
+//                     lineHeight: '71px',
+//                   }}
+//                 >
+//                   Add to Spotify
+//                 </div>
+//               </div>
+//             )}
+//           </div>
+
+//           {showAlert && playlistResponse && (
+//             <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+//               <div style={{ width: '100%', height: '100%', position: 'relative' }}>
+//                 <div style={{
+//                   width: '250px',
+//                   height: '100px',
+//                   position: 'relative',
+//                   background: '#FFD240',
+//                   boxShadow: '-10px 10px 0px rgba(0, 0, 0, 0.25)',
+//                   borderRadius: '30px'
+//                 }} />
+//                 <div style={{
+//                   width: '250px',
+//                   height: '100px',
+//                   position: 'absolute',
+//                   textAlign: 'center',
+//                   top: '50%',
+//                   left: '50%',
+//                   transform: 'translate(-50%, -50%)',
+//                   display: 'flex',
+//                   alignItems: 'center',
+//                   justifyContent: 'center',
+//                   flexDirection: 'column'
+//                 }}>
+//                   <span style={{
+//                     color: 'white',
+//                     fontSize: '15px',
+//                     fontFamily: 'Gunnar',
+//                     fontWeight: '400',
+//                     textTransform: 'uppercase',
+//                     wordWrap: 'break-word'
+//                   }}>Your</span>
+//                   <span style={{
+//                     color: '#53498E',
+//                     fontSize: '15px',
+//                     fontFamily: 'Gunnar',
+//                     fontWeight: '400',
+//                     textTransform: 'uppercase',
+//                     wordWrap: 'break-word'
+//                   }}> Ultimate {capitalizeWords(searchKeyword)} Playlist </span>
+//                   <span style={{
+//                     color: 'white',
+//                     fontSize: '15px',
+//                     fontFamily: 'Gunnar',
+//                     fontWeight: '400',
+//                     textTransform: 'uppercase',
+//                     wordWrap: 'break-word'
+//                   }}>has been added to Spotify!</span>
+//                 </div>
+//               </div>
 //             </div>
-//             {playlistResponse && (
-//               <div>
-//                 <h2>Playlist Created</h2>
-//                 <pre>{JSON.stringify(playlistResponse, null, 2)}</pre>
-//               </div>
-//             )}
-//             {searchResults.length > 0 && (
-//               <div>
-//                 <h2>Search Results</h2>
-//                 <ul>
-//                   {searchResults.map(playlist => (
-//                     <li key={playlist.id}>
-//                       <strong>{playlist.name}</strong> by {playlist.owner.display_name}
-//                       {playlistTracks[playlist.id] && (
-//                         <ul>
-//                           {playlistTracks[playlist.id].map(track => (
-//                             <li key={track.track?.id}>
-//                               {track.track?.name ?? 'Unknown Track'} by {track.track?.artists?.[0]?.name ?? 'Unknown Artist'}
-//                             </li>
-//                           ))}
-//                         </ul>
-//                       )}
-//                     </li>
-//                   ))}
-//                 </ul>
-//               </div>
-//             )}
-//             {duplicateTracks.length > 0 && (
-//               <div>
-//                 <h2>Duplicate Tracks</h2>
-//                 <ul>
-//                   {duplicateTracks.map(track => (
-//                     <li key={track.id}>
-//                       {track.name} by {track.artist} - {track.count} times
-//                     </li>
-//                   ))}
-//                 </ul>
-//               </div>
-//             )}
-//           </>
-//         )}
-//       </header>
-//     </div>
-//   );
+//           )}
+//         </>
+//       )}
+//     </header>
+//   </div>
+// );
 // }
 
 // export default App;
