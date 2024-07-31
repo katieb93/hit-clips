@@ -117,9 +117,9 @@ tailwind.config.js
 src/output.css
 
 # Ignore font files if not necessary to keep in the repository
-src/*.ttf
-src/*.otf
-src/*-webfont.ttf
+# src/*.ttf
+# src/*.otf
+# src/*-webfont.ttf
 
 # Ignore backup files
 src/AppBackUp
