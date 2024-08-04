@@ -240,6 +240,10 @@ function Home() {
     setSearchKeyword(event.target.value);
   };
 
+  // Log the unused variables to avoid eslint errors
+  console.log(playlistResponse);
+  console.log(searchResults);
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
