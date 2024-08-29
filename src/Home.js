@@ -13,7 +13,7 @@ import GunnarRegular from './fonts/Gunnar-Regular.ttf';
 const spotifyApi = new SpotifyWebApi();
 
 const CLIENT_ID = process.env.REACT_APP_SPOTIFY_CLIENT_ID;
-const REDIRECT_URI = process.env.REACT_APP_SPOTIFY_REDIRECT_URI;
+const REDIRECT_URI = "https://cliphits.netlify.app/callback";
 const AUTH_ENDPOINT = process.env.REACT_APP_SPOTIFY_AUTH_ENDPOINT;
 const RESPONSE_TYPE = process.env.REACT_APP_SPOTIFY_RESPONSE_TYPE;
 const SCOPE = process.env.REACT_APP_SPOTIFY_SCOPE;
